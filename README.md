@@ -3,7 +3,7 @@ This repository provides an assembler compiler written in Python for a simulated
 
 ## Getting started
 ### Clone:
-`git clone https://github.com/Kenoalpe/asm-compiler-exercise.git`
+`git clone https://github.com/Kenoalpe/custom-assembler.git`
 
 ### Change directory:
 `cd asm-compiler-excercise`
