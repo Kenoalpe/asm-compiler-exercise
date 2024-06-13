@@ -10,14 +10,11 @@ This repository provides an assembler compiler written in Python for a simulated
 
 ### Get required packages (Linux):
 1. Create a virtual environment:
-
-   a. [venv in pycharm](https://www.jetbrains.com/help/pycharm/creating-virtual-environment.html)
-2. Move into `venv`
- 
-   a. `source .venv/bin/activate `
-3. Install requirements
-
-    a. `python3 -m pip install -r requirements.txt`
+   1. [venv in pycharm](https://www.jetbrains.com/help/pycharm/creating-virtual-environment.html)
+2. Move into **venv**:
+   1. `source venv/bin/activate`
+3. Install requirements:
+    1. `python3 -m pip install -r requirements.txt`
 
 ### Run:
 `python3 -m app`
