@@ -1,0 +1,4 @@
+; Comment
+NOP ; Comment 2
+NOP
+INST
