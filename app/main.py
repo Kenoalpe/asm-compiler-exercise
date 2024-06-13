@@ -1,37 +1,32 @@
 from sly import Lexer, Parser
 
-machinecode = {
-    "NOP" : "20"
-}
+global INSTRUCTION, NOP
+
 
 class CalcLexer(Lexer):
-    tokens = {INSTRUCTION, ADDRESS, HEX_NUMBERS, SPECIAL_CHARS, REGISTERS, COMMENTS, NOP}
-    ignore = ' \t'
-    ignore_comment = r'\;.*'
+    # Available Token
+    tokens = {INSTRUCTION, NOP}
+
+    # Ignore whitespace and tab
+    ignore = " \t"
 
     # Tokens
-    INSTRUCTION = r'[A-Z]*'
-    ADDRESS = r'[a-zA-Z_][a-zA-Z0-9]*\:'
-    HEX_NUMBERS = r'\#[0-9]*'
-    #SPECIAL_CHARS = r':'
-    REGISTERS = r'a|b'
-
+    INSTRUCTION = r'[A-Z][A-Z]*'
     INSTRUCTION['NOP'] = NOP
 
-     # Line number tracking
     @_(r'\n+')
     def ignore_newline(self, t):
-        self.lineno += t.value.count('\n')
-    
-    # Error handling rule
-    def error(self, t):
-        print("Illegal character '%s'" % t.value[0])
-        self.index += 1
-    
-class CalcParser(Parser):
-    tokens = CalcLexer.tokens
+        self.lineno += len(t.value)
 
 
 def run():
-    lexer = CalcLexer().tok
-    parser = CalcParser()
+    data = '''
+    NOP
+    NOP
+    '''
+
+    lexer = CalcLexer()
+    for token in lexer.tokenize(data):
+        print('type=%r, value=%r' % (token.type, token.value))
+
+    print(lexer)
