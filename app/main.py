@@ -14,12 +14,12 @@ class CalcLexer(Lexer):
     INSTRUCTION = r'[A-Z][A-Z]*'
     INSTRUCTION['NOP'] = NOP
 
-    # New line
-    @_(r'\n+')
-    def ignore_newline(self, t):
-        self.lineno += len(t.value)
+    # Define a new line
+    @_(r'\n')
+    def newline(self, t):
+        self.lineno += t.value.count('\n')
 
-    # Error handling rule
+    # Define error if no token matches
     def error(self, t):
         print("Illegal alien '%s'" % t.value[0])
         self.index += 1
@@ -27,9 +27,9 @@ class CalcLexer(Lexer):
 
 def run():
     data = '''
-    NOPL+
-    NOP
-    '''
+NOP
+NOP
+'''
 
     lexer = CalcLexer()
     for token in lexer.tokenize(data):
