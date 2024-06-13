@@ -14,14 +14,20 @@ class CalcLexer(Lexer):
     INSTRUCTION = r'[A-Z][A-Z]*'
     INSTRUCTION['NOP'] = NOP
 
+    # New line
     @_(r'\n+')
     def ignore_newline(self, t):
         self.lineno += len(t.value)
 
+    # Error handling rule
+    def error(self, t):
+        print("Illegal alien '%s'" % t.value[0])
+        self.index += 1
+
 
 def run():
     data = '''
-    NOP
+    NOPL+
     NOP
     '''
 
