@@ -1,5 +1,5 @@
-# asm-compiler-exercise
-This repository provides an assembler compiler written in Python for a simulated CPU in Logisim, enabling the conversion of custom assembly code into machine code.
+# custom-assembler
+This repository provides an assembler written in Python for a simulated CPU in Logisim, enabling the conversion of custom assembly code into machine code.
 
 ## Getting started
 ### Clone:
