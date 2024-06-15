@@ -12,6 +12,7 @@ def run():
 
     # Set the opcode table in the synthesis model
     # synthesis_model.opcode_table = # ToDo Put opcode here
+    print(synthesis_model.symbol_table)
 
     # Run the synthesis to generate machine code
     SynthesisController(model=synthesis_model, view=SynthesisView).run()

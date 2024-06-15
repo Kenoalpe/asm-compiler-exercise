@@ -5,7 +5,7 @@ class AnalysisView:
         print('__________________________')
         if assembler is not None:
             print(assembler)
-        print('__________________________', end='')
+        print('__________________________')
 
     @staticmethod
     def display_cleaned(assembler: str):
