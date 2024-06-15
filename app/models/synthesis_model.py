@@ -1,0 +1,2 @@
+class SynthesisModel:
+    pass

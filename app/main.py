@@ -2,6 +2,9 @@
 from sly import Lexer, Parser
 
 # Internal imports
+from app.models import  AnalysisModel, SynthesisModel
+from app.views import  AnalysisView
+from app.controllers import AnalysisController, SynthesisController
 from app.util import FileUtils
 
 
@@ -47,27 +50,26 @@ class AsmParser(Parser):
 
 
 def run():
-    print('Welcome, let\'s assemble some assembly!\n')
+    AnalysisController(AnalysisModel('assembler/asm-1.txt'), AnalysisView()).run()
+
+    #print('Welcome, let\'s assemble some assembly!\n')
 
     # Assembly program code parse
-    data = FileUtils.parse_txt('assembler/asm-1.txt')
+    #data = FileUtils.parse_txt('assembler/asm-1.txt')
 
-    print('Assembly code to assemble:')
-    print('__________________________\n')
-    if data is not None:
-        print(data)
-
-
+    # Output raw input data
+    #print('Assembly code to assemble:')
+    #print('__________________________')
+    #if data is not None:
+    #    print(data)
+    #print()
 
     # Get instances of lexer and parser
     #lexer = AsmLexer()
-    #parser = AsmParser()
 
     # Split file into tokens
     #tokenized = lexer.tokenize(data)
 
-    # Parse tokens to machine code
-    #parser.parse(tokenized)
-
+    # Print
     #for token in tokenized:
     #    print('line=%r, type=%r, value=%r' % (token.lineno, token.type, token.value))
