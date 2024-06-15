@@ -2,8 +2,8 @@
 from sly import Lexer, Parser
 
 # Internal imports
-from app.models import  AnalysisModel, SynthesisModel
-from app.views import  AnalysisView
+from app.models import AnalysisModel, SynthesisModel
+from app.views import AnalysisView, SynthesisView
 from app.controllers import AnalysisController, SynthesisController
 from app.util import FileUtils
 
@@ -50,7 +50,13 @@ class AsmParser(Parser):
 
 
 def run():
-    AnalysisController(AnalysisModel('assembler/asm-1.txt'), AnalysisView()).run()
+    # Run analysis on the assembly file and return the synthesis_model
+    synthesis_model = AnalysisController(model=AnalysisModel('assembler/asm-1.txt'), view=AnalysisView).run()
+
+    # Set the opcode table in the synthesis model
+
+    # Run the synthesis to generate machine code
+    SynthesisController(model=synthesis_model, view=SynthesisView).run()
 
     #print('Welcome, let\'s assemble some assembly!\n')
 

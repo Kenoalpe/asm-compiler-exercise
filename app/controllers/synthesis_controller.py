@@ -3,3 +3,8 @@ class SynthesisController:
         self.model = model
         self.view = view
 
+    def run(self):
+        pass
+
+
+
