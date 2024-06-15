@@ -1,7 +1,6 @@
 class SynthesisModel:
-    def __init__(self, symbol_table: dict[str, int], literal_table: dict[str, int], opcode_table=None):
+    def __init__(self, symbol_table: dict[str, int], opcode_table=None):
         self.symbol_table = symbol_table
-        self.literal_table = literal_table
         self._opcode_table = opcode_table
 
     @property

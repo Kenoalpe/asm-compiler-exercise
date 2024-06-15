@@ -12,7 +12,6 @@ class AnalysisController:
 
     def run(self):
         symbol_table = {}
-        literal_table = {}
 
         # Display raw assembly
         self.view.display_raw(self.model.data)
@@ -27,10 +26,10 @@ class AnalysisController:
                 continue
 
             # Parse line into tables
-            self.__parse_asm_line(line, symbol_table, literal_table)
+            self.__parse_asm_line(line, symbol_table)
             print(line)
 
-        return SynthesisModel(symbol_table=symbol_table, literal_table=literal_table)
+        return SynthesisModel(symbol_table=symbol_table)
 
     @staticmethod
     def __remove_comments(line: str):
