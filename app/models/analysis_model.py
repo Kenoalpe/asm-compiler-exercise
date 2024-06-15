@@ -8,3 +8,7 @@ class AnalysisModel:
     @property
     def data(self) -> str:
         return self._data
+
+    @property
+    def line_data(self):
+        return self._data.splitlines()

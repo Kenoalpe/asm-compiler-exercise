@@ -1,4 +1,3 @@
-; Comment
-NOP ; Comment 2
-NOP
-INST
+label: MOV A,B ; Comment
+
+    ; label

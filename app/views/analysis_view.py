@@ -1,6 +1,16 @@
-
 class AnalysisView:
     @staticmethod
-    def display(assembler: str):
-        print(assembler)
+    def display_raw(assembler: str):
+        print('Assembly code to assemble:')
+        print('__________________________')
+        if assembler is not None:
+            print(assembler)
+        print('__________________________', end='')
 
+    @staticmethod
+    def display_cleaned(assembler: str):
+        print('Raw assembly without comments')
+        print('__________________________')
+        if assembler is not None:
+            print(assembler)
+        print('__________________________', end='')
