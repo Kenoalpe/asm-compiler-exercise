@@ -1,0 +1,2 @@
+class SynthesisView:
+    pass

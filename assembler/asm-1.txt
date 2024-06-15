@@ -1,0 +1,3 @@
+label: MOV A,B ; Comment
+
+    ; label
