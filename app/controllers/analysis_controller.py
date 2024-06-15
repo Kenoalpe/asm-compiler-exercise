@@ -11,8 +11,8 @@ class AnalysisController:
         self.view = view
 
     def run(self):
-        symbol_table = None
-        literal_table = None
+        symbol_table = {}
+        literal_table = {}
 
         # Display raw assembly
         self.view.display_raw(self.model.data)
@@ -27,7 +27,7 @@ class AnalysisController:
                 continue
 
             # Parse line into tables
-            self.__parse_asm_line(line)
+            self.__parse_asm_line(line, symbol_table, literal_table)
             print(line)
 
         return SynthesisModel(symbol_table=symbol_table, literal_table=literal_table)
@@ -38,7 +38,7 @@ class AnalysisController:
         return line.split(';', 1)[0].strip()
 
     @staticmethod
-    def __parse_asm_line(line: str):
+    def __parse_asm_line(line: str, symbol_table, literal_table):
 
         # Check for label
         label_pattern = r'([_a-z]\w*)\s*:'
@@ -46,3 +46,5 @@ class AnalysisController:
         if match:
             # ToDo something
             pass
+
+
