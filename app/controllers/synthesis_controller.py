@@ -71,9 +71,9 @@ class SynthesisController:
             if match:
                 opcode_list_out.append(AssemblerUtil.hexlify(match.group(1), False))
                 # Increment in symbol_table when 2 Byte instruction occurs
-                for key, value in self.model.symbol_table.items():
-                    if value > counter:
-                        self.model.symbol_table[key] += 1
+                # for key, value in self.model.symbol_table.items():
+                #     if value > counter:
+                #         self.model.symbol_table[key] += 1
 
             counter += 1
             print()

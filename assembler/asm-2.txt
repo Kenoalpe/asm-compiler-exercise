@@ -2,7 +2,7 @@ start: LOAD A, #A
 loop:  INC A
        JMP start
        JMP olo
-       LOAD A, #20
+test:  LOAD A, #20
        OUTPUT
        JMP loop
 olo:   JMP start
