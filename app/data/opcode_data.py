@@ -3,11 +3,10 @@ class OpcodeData:
         raise NotImplementedError('This class is not meant to be instantiated')
 
     @staticmethod
-    def get_opcode_data() -> dict[str, int]:
+    def get_opcode_data() -> dict[str, str]:
         return {
-            'OUTPUT': 0x02,
-            'LOAD A':  0x04,
-            'INC A': 0x05,
-            'NOP': 0x0C,
-            'JMP': 0x03
+            'OUTPUT': '02',
+            'JMP': '03',
+            'LOAD A':  '04',
+            'INC A': '05'
         }

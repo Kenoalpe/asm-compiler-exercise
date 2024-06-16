@@ -18,6 +18,7 @@ class AnalysisController:
         symbol_table: dict[str, int | None] = {}
 
         # Display raw assembly
+        # ToDo remove debug
         self.view.display_raw(self.model.data)
 
         for line in self.model.line_data:
@@ -35,7 +36,7 @@ class AnalysisController:
             if value is None:
                 raise SemanticError(f"Symbol: {symbol} has no value")
 
-        return SynthesisModel(symbol_table=symbol_table)
+        return SynthesisModel(assembly_file_path=self.model.path,symbol_table=symbol_table)
 
     @staticmethod
     def __parse_asm_line(line: str, counter: int, symbol_table: dict[str, int | None]):
