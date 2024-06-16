@@ -1,10 +1,10 @@
 # External imports
 import re
-from typing import Dict, Any
 
 # Internal imports
 from app.models import SynthesisModel
 from app.exception import SemanticError
+from app.util import AssemblerUtil
 
 
 class AnalysisController:
@@ -22,7 +22,7 @@ class AnalysisController:
 
         for line in self.model.line_data:
             # Remove comment and comment lines
-            line = self.__remove_comments(line=line)
+            line = AssemblerUtil.remove_comments_line(line=line)
             if not line:
                 continue
 
@@ -38,20 +38,15 @@ class AnalysisController:
         return SynthesisModel(symbol_table=symbol_table)
 
     @staticmethod
-    def __remove_comments(line: str):
-        # Prepare line and remove comments
-        return line.split(';', 1)[0].strip()
-
-    @staticmethod
     def __parse_asm_line(line: str, counter: int, symbol_table: dict[str, int | None]):
-        # Check for label
+        # Check for label-definition
         label_pattern = r'([_a-z]\w*)\s*:'
         match = re.match(pattern=label_pattern, string=line)
         if match:
             line = line.replace(match.group(1) + ':', '', 1).strip()  # Remove label from line
             symbol_table[match.group(1)] = counter
 
-        # Check for variable
+        # Check for label-call
         variable_pattern = r'[_a-z]\w*\s*'
         match = re.search(pattern=variable_pattern, string=line)
         if match:
