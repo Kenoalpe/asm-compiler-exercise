@@ -1,0 +1,4 @@
+start: LOAD A, #0
+loop:  OUTPUT
+       INC A
+       JMP loop
