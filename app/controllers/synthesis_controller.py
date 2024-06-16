@@ -52,7 +52,9 @@ class SynthesisController:
             for key in self.model.symbol_table:
                 match = re.search(pattern=key, string=line)
                 if match:
-                    opcode_list_out.append(opcode_list_out[self.model.symbol_table[key] + opcode_add_counter])
+                    #opcode_list_out.append(opcode_list_out[self.model.symbol_table[key] + opcode_add_counter])
+                    # ToDo Hex change to hex and correct presentation
+                    opcode_list_out.append(self.model.symbol_table[key] + opcode_add_counter)
                     break
 
             # Check if a constant needs to be added

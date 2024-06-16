@@ -1,4 +1,4 @@
 start: LOAD A, #FA
-loop:  OUTPUT
+loop:  INC A
        INC A
        JMP loop
