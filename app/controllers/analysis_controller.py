@@ -41,6 +41,7 @@ class AnalysisController:
     @staticmethod
     def __parse_asm_line(line: str, counter: int, symbol_table: dict[str, int | None]):
         # Check for label-definition
+        # ToDo change to assembler_util
         label_pattern = r'([_a-z]\w*)\s*:'
         match = re.match(pattern=label_pattern, string=line)
         if match:

@@ -11,6 +11,14 @@ class AssemblerUtil:
         return line.split(';', 1)[0].strip()
 
     @staticmethod
+    def hexlify(num: int, isint: bool = False) -> str:
+        if isint:
+            num = hex(num)[2:]
+        if len(num) == 1:
+            num = f'0{num}'
+        return num
+
+    @staticmethod
     def remove_label(line: str):
         label_pattern = r'([_a-z]\w*)\s*:'
         match = re.match(pattern=label_pattern, string=line)

@@ -13,8 +13,8 @@ class SynthesisController:
 
     def run(self):
         # Initialize variables
-        found_instruction = False
         opcode_list_out = []
+        counter = 0
         opcode_add_counter = 0
 
         # ToDo remove debug
@@ -29,45 +29,53 @@ class SynthesisController:
             if not line:
                 continue
 
-            # Remove label
+            # Remove label definition
             line = AssemblerUtil.remove_label(line=line)
             if not line:
                 continue
 
             print(line)
-            # Replace instruction with opcode
-            for key in self.model.opcode_table:
-                found_instruction = False
-                match = re.search(pattern=key, string=line)
-                if match:
-                    opcode_list_out.append(self.model.opcode_table[key])
-                    found_instruction = True
-                    break
 
-            # Check if any instruction was found
-            if not found_instruction:
-                raise SyntaxError(f"Instruction on line '{line}' not available in opcode table!")
+            # Replace instruction with opcode
+            instruction_pattern = r'([A-Z]*\s*[A-Z]{0,1})'
+            match = re.search(pattern=instruction_pattern, string=line)
+            if match:
+                try:
+                    opcode_list_out.append(self.model.opcode_table[match.group(1).strip()])
+                except KeyError:
+                    raise SyntaxError(f"Instruction on line '{line}' not available in opcode table!")
 
             # Check if a label need to be placed
-            for key in self.model.symbol_table:
-                match = re.search(pattern=key, string=line)
-                if match:
-                    #opcode_list_out.append(opcode_list_out[self.model.symbol_table[key] + opcode_add_counter])
-                    # ToDo Hex change to hex and correct presentation
-                    opcode_list_out.append(self.model.symbol_table[key] + opcode_add_counter)
-                    break
+            label_pattern = r'([_a-z]\w*)\s*'
+            match = re.search(pattern=label_pattern, string=line)
+            if match:
+                try:
+                    opcode_list_out.append(AssemblerUtil.hexlify(self.model.symbol_table[match.group(1).strip()], True))
+                    # Increment in symbol_table when 2 Byte instruction occurs
+                    #for key, value in self.model.symbol_table.items():
+                    #    if value > counter:
+                    #        self.model.symbol_table[key] += 1
+                    #self.model.symbol_table[match.group(1).strip()] + opcode_add_counter
+                finally:
+                    pass
+            # for key in self.model.symbol_table:
+            #     match = re.search(pattern=key, string=line)
+            #     if match:
+            #         opcode_list_out.append(
+            #             AssemblerUtil.hexlify(self.model.symbol_table[key] + opcode_add_counter, True))
+            #         break
 
             # Check if a constant needs to be added
             const_value_pattern = r'#([0-9a-fA-F]{1,2})'
             match = re.search(pattern=const_value_pattern, string=line)
             if match:
-                const_value = match.group(1)
-                # Add a 0 when too short
-                if len(const_value) == 1:
-                    const_value = f'0{const_value}'
-                opcode_list_out.append(const_value)
-                opcode_add_counter += 1
+                opcode_list_out.append(AssemblerUtil.hexlify(match.group(1), False))
+                # Increment in symbol_table when 2 Byte instruction occurs
+                for key, value in self.model.symbol_table.items():
+                    if value > counter:
+                        self.model.symbol_table[key] += 1
 
+            counter += 1
             print()
 
         print(opcode_list_out)
