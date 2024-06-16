@@ -1,8 +1,8 @@
-start: LOAD A, #A
+start: LDV A, #A
 loop:  INC A
        JMP start
        JMP olo
-test:  LOAD A, #20
+test:  LDV A, #20
        OUTPUT
        JMP loop
 olo:   JMP start

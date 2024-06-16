@@ -8,7 +8,7 @@ class OpcodeData:
             'INPUT': '01',
             'OUTPUT': '02',
             'JMP': '03',
-            '#LOAD A': '04',  # With '#'
+            'LDV A': '04',  # With '#'
             'INC A': '05',
             'MOV B': '06',
             'ADD A': '07',
@@ -20,5 +20,5 @@ class OpcodeData:
             'EQUAL': '15',
             'BEQ': '16',
             'STORE A': '18',
-            'LOAD A': '1D'  # Without
+            'LDR A': '1D'  # Without
         }
