@@ -1,3 +1,5 @@
+import re
+
 # Internal imports
 from app.models import AnalysisModel, SynthesisModel
 from app.views import AnalysisView, SynthesisView
@@ -17,3 +19,5 @@ def run():
 
     # Run the synthesis to generate machine code
     SynthesisController(model=synthesis_model, view=SynthesisView).run()
+
+
