@@ -13,8 +13,8 @@ class SynthesisController:
 
     def run(self):
         # Initialize variables
-        opcode_list_out = []
         counter = 0
+        opcode_list_out = []
 
         # ToDo remove debug
         print('---------------------')
@@ -32,6 +32,13 @@ class SynthesisController:
             line = AssemblerUtil.remove_label(line=line)
             if not line:
                 continue
+
+            # Parse line into the opcode list
+            # counter, opcode_list_out = self._parse_line(
+            #     counter=counter,
+            #     opcode_list=opcode_list_out,
+            #     line=line
+            # )
 
             # Replace instruction with opcode
             instruction_pattern = r'([A-Z]*\s*[A-Z]{0,1})'
@@ -60,3 +67,23 @@ class SynthesisController:
             counter += 1
 
         print(opcode_list_out)
+
+    def _parse_line(self, counter: int, opcode_list, line: str):
+        # Internal copies
+        internal_counter = counter
+        internal_opcode_list = opcode_list
+        # Match line to regex
+        match = re.match(pattern=self.model.pattern, string=line)
+        # Replace instruction with opcode
+        # ToDo move literal to model
+        instruction = match.group(3).strip()
+        if instruction:
+            try:
+                internal_opcode_list.append(self.model.opcode_table[instruction])
+            except KeyError:
+                raise SyntaxError(f"Instruction on line '{line}' not available in opcode table!")
+        # Place label
+
+        # Place constant
+
+        return internal_counter, internal_opcode_list

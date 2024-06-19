@@ -46,6 +46,7 @@ class AnalysisController:
         )
 
     def _parse_line(self, instruction_line_counter: int, symbol_table: dict[str, int | None], line: str):
+        # Internal copies
         internal_ilc = instruction_line_counter
         internal_symbol_table = symbol_table
         # Match line to regex
