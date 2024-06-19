@@ -1,8 +1,11 @@
-start: LDV A, #A
+; Test
+start: LDV A, #A ; Test2
 loop:  INC A
        JMP start
        JMP olo
+       ; Another test
 test:  LDV A, #20
+;hello: JMP test
        OUTPUT
        JMP loop
 olo:   JMP start

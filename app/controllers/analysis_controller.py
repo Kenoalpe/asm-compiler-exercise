@@ -30,6 +30,7 @@ class AnalysisController:
 
         # Parse line for line into the symbol_table
         for line in self.model.line_data:
+            print(instruction_line_counter)
             # Remove comment and comment lines
             line = AssemblerUtil.remove_comments_line(line=line)
             if not line:
@@ -37,47 +38,52 @@ class AnalysisController:
 
             match = re.match(pattern=all_pattern, string=line)
             if match:
-
                 label_definition = match.group(2)
-                if label_definition is not None:
+                if label_definition:
+                    symbol_table[label_definition] = instruction_line_counter
                     print('Label Def:' + label_definition)
 
                 label_call = match.group(7)
-                if label_call is not None:
-                    # ToDo inc ilc
+                if label_call:
+                    # Variable check if found does not already have a value
+                    if label_call not in symbol_table:
+                        symbol_table[label_call] = None
+                    instruction_line_counter += 1
+
                     print('Label Call: ' + label_call)
 
                 const_definition = match.group(5)
-                if const_definition is not None:
-                    # ToDo inc ilc
+                if const_definition:
+                    instruction_line_counter += 1
                     print('Value definition: ' + const_definition)
-
             else:
                 continue
+            instruction_line_counter += 1
+
 
             # Check for label-definition
             # ToDo change to assembler_util
-            label_pattern = r'([_a-z]\w*)\s*:'
-            match = re.match(pattern=label_pattern, string=line)
-            if match:
-                line = line.replace(match.group(1) + ':', '', 1).strip()  # Remove label from line
-                symbol_table[match.group(1)] = instruction_line_counter
+            # label_pattern = r'([_a-z]\w*)\s*:'
+            # match = re.match(pattern=label_pattern, string=line)
+            # if match:
+            #     line = line.replace(match.group(1) + ':', '', 1).strip()  # Remove label from line
+            #     symbol_table[match.group(1)] = instruction_line_counter
 
-            # Check for label-call
-            match = re.search(pattern=variable_pattern, string=line)
-            if match:
-                variable = match.group()
-                # Variable check if found does not already have a value
-                if variable not in symbol_table:
-                    symbol_table[match.group()] = None
-                instruction_line_counter += 1
-            instruction_line_counter += 1
-
-            # Check if the ilc need to be incremented
-            match = re.search(pattern=const_value_pattern, string=line)
-            if match:
-                # Increment in symbol_table when 2 Byte instruction occurs
-                instruction_line_counter += 1
+            # # Check for label-call
+            # match = re.search(pattern=variable_pattern, string=line)
+            # if match:
+            #     variable = match.group()
+            #     # Variable check if found does not already have a value
+            #     if variable not in symbol_table:
+            #         symbol_table[match.group()] = None
+            #     instruction_line_counter += 1
+            # instruction_line_counter += 1
+            #
+            # # Check if the ilc need to be incremented
+            # match = re.search(pattern=const_value_pattern, string=line)
+            # if match:
+            #     # Increment in symbol_table when 2 Byte instruction occurs
+            #     instruction_line_counter += 1
 
         # Check for semantic error
         for symbol, value in symbol_table.items():
