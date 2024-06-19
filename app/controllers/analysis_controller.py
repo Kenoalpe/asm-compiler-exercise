@@ -41,8 +41,7 @@ class AnalysisController:
             instruction_line_counter += 1
 
         return SynthesisModel(
-            assembly_file_path=self.model.path,
-            pattern=self.model.pattern,
+            analysis_model=self.model,
             symbol_table=symbol_table,
         )
 
