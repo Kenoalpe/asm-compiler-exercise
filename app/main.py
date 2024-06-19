@@ -15,8 +15,7 @@ def run():
     synthesis_model = AnalysisController(
         model=AnalysisModel(
             assembly_file_path=path,
-            pattern=r'(\s*([_a-z]\w*)\s*:)?\s*([A-Z]*\s*[A-Z]\s*,{0,1}\s*[A-Z]{0,1})\s*(#([0-9a-fA-F]{0,2})\s*)?(\s*('
-                    r'[_a-z]\w*)\s*)?',
+            pattern=r'(\s*([_a-z]\w*)\s*:)?\s*([A-Z]*\s*[A-Z]\s*,{0,1}\s*[A-Z]{0,1})\s*(#([0-9a-fA-F]{0,2})\s*)?(\s*([_a-z]\w*)\s*)?',
             label_definition_group=2,
             label_call_group=7,
             byte_definition_group=5

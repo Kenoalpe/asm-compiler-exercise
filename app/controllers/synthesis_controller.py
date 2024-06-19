@@ -15,7 +15,6 @@ class SynthesisController:
         # Initialize variables
         opcode_list_out = []
         counter = 0
-        opcode_add_counter = 0
 
         # ToDo remove debug
         print('---------------------')
@@ -34,8 +33,6 @@ class SynthesisController:
             if not line:
                 continue
 
-            print(line)
-
             # Replace instruction with opcode
             instruction_pattern = r'([A-Z]*\s*[A-Z]{0,1})'
             match = re.search(pattern=instruction_pattern, string=line)
@@ -51,31 +48,15 @@ class SynthesisController:
             if match:
                 try:
                     opcode_list_out.append(AssemblerUtil.hexlify(self.model.symbol_table[match.group(1).strip()], True))
-                    # Increment in symbol_table when 2 Byte instruction occurs
-                    #for key, value in self.model.symbol_table.items():
-                    #    if value > counter:
-                    #        self.model.symbol_table[key] += 1
-                    #self.model.symbol_table[match.group(1).strip()] + opcode_add_counter
                 finally:
                     pass
-            # for key in self.model.symbol_table:
-            #     match = re.search(pattern=key, string=line)
-            #     if match:
-            #         opcode_list_out.append(
-            #             AssemblerUtil.hexlify(self.model.symbol_table[key] + opcode_add_counter, True))
-            #         break
 
             # Check if a constant needs to be added
             const_value_pattern = r'#([0-9a-fA-F]{1,2})'
             match = re.search(pattern=const_value_pattern, string=line)
             if match:
                 opcode_list_out.append(AssemblerUtil.hexlify(match.group(1), False))
-                # Increment in symbol_table when 2 Byte instruction occurs
-                # for key, value in self.model.symbol_table.items():
-                #     if value > counter:
-                #         self.model.symbol_table[key] += 1
 
             counter += 1
-            print()
 
         print(opcode_list_out)
