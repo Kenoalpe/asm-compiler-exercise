@@ -20,7 +20,7 @@ class AnalysisController:
 
     def run(self):
         # Initialize variables
-        instruction_line_counter = 0
+        counter = 0
         symbol_table: dict[str, int | None] = {}
 
         # Parse line for line into the symbol_table
@@ -31,14 +31,14 @@ class AnalysisController:
                 continue
 
             # Parse line into symbol-table
-            instruction_line_counter, symbol_table = self._parse_line(
-                instruction_line_counter=instruction_line_counter,
+            counter, symbol_table = self._parse_line(
+                instruction_line_counter=counter,
                 symbol_table=symbol_table,
                 line=line
             )
 
             # Inc ilc for next line
-            instruction_line_counter += 1
+            counter += 1
 
         return SynthesisModel(
             analysis_model=self.model,
