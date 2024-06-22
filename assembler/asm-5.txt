@@ -1,6 +1,6 @@
 loop: MOV B,A
       JMP end
       INC A
-      RESB 3
+label:RESB 3
       INC A
 end:  HALT
