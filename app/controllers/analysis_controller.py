@@ -54,6 +54,7 @@ class AnalysisController:
         match = re.match(pattern=self.model.pattern, string=line)
 
         # Get tokens
+        instruction = match.group(3)
         defined_label = match.group(self.model.label_definition_group)
         called_label = match.group(self.model.label_call_group)
         byte = match.group(self.model.byte_definition_group)
@@ -75,6 +76,20 @@ class AnalysisController:
                 if byte:
                     # Increment counter
                     internal_ilc += 1
+
+            # Check for pseudo-instructions
+            if instruction:
+                instruction = instruction.strip()
+                if instruction in self.model.pseudo_instruction:
+                    if instruction == 'DB':
+                        internal_ilc -= 1
+                    elif instruction == 'EQU':
+                        internal_ilc -= 2
+                        internal_symbol_table[defined_label] = byte
+                    elif instruction == 'RESB':
+                        # ToDo error handling for when byte is not an int
+                        internal_ilc = internal_ilc + int(byte) - 2
+
         else:
             # Wrong characters
             raise SyntaxError(f'No valid assembly on line: {instruction_line_counter}')

@@ -24,7 +24,7 @@ class OpcodeData:
 
     @staticmethod
     def get_pseudo_instruction_data():
-        return ['RESB']
+        return ['DB', 'EQU', 'RESB']
 
     def __init__(self):
         raise NotImplementedError('This class is not meant to be instantiated')

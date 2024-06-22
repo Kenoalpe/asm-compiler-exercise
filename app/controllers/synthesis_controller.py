@@ -57,44 +57,56 @@ class SynthesisController:
         # ToDo Move group to model
         # Get tokens
         instruction = match.group(3)
-        literal = match.group(self.model.byte_definition_group)
-        label = match.group(self.model.label_call_group)
+        called_label = match.group(self.model.label_call_group)
+        byte = match.group(self.model.byte_definition_group)
 
-        # Replace instruction and literal with opcode
+        # Replace instruction and byte with opcode
         if instruction:
             instruction = instruction.strip()
 
             # Check for pseudo-instruction
             if instruction in self.model.pseudo_instruction:
-                if instruction == 'RESB':
-                    pass
+                if byte:
+                    if instruction == 'DB':
+                        internal_opcode_list.append(AssemblerUtil.hexlify(byte.strip(), False))
+                    elif instruction == 'RESB':
+                        byte = int(byte.strip())
+                        for i in range(0, byte):
+                            internal_opcode_list.append('00')
 
-                    print("Hello There")
-                return internal_counter, internal_opcode_list
+                    return internal_counter, internal_opcode_list
+                else:
+                    # ToDo error handling
+                    pass
 
             try:
                 # Check if instruction is available in opcode table
                 instruction_opcode = self.model.opcode_table[instruction]
-                # Check for a literal
-                if literal:
+                # Check for a byte
+                if byte or called_label:
                     # Check if this instruction has different connotations, if yes differentiate between address and
                     # value if not, just add the opcode of the instruction following the value
                     if isinstance(instruction_opcode, dict):
-                        if '#' in literal:
-                            literal = literal.replace('#', '')
+                        if '#' in byte:
+                            byte = byte.replace('#', '')
                             internal_opcode_list.append(instruction_opcode['#'])
                         else:
                             internal_opcode_list.append(instruction_opcode[''])
                     else:
                         internal_opcode_list.append(instruction_opcode)
-                    internal_opcode_list.append(AssemblerUtil.hexlify(literal.strip(), False))
+                    if not called_label:
+                        internal_opcode_list.append(AssemblerUtil.hexlify(byte.strip(), False))
                 else:
                     internal_opcode_list.append(instruction_opcode)
             except KeyError:
                 raise SyntaxError(f"Instruction on line '{line}' not available in opcode table!")
 
-        # Place label
-        if label:
-            internal_opcode_list.append(AssemblerUtil.hexlify(self.model.symbol_table[label.strip()], True))
+        # Place called_label
+        if called_label:
+            symbol_num = self.model.symbol_table[called_label.strip()]
+            if isinstance(symbol_num, str):
+                internal_opcode_list.append(AssemblerUtil.hexlify(symbol_num, False))
+            else:
+                internal_opcode_list.append(AssemblerUtil.hexlify(symbol_num, True))
 
         return internal_counter, internal_opcode_list

@@ -1,12 +1,17 @@
         ; init B auf 1
         LOAD A, #1
         MOV B,A
+        LOAD A, var
+        JMP var
+var:    EQU 3A
+        DB 4F
         ; RESB 5
         ; init A auf 10
         LOAD A, #A
 loop:   BEQ end
         ; Gebe A aus
         OUTPUT
+        RESB 15
         ; Dec A
         SUB A,B
         ; Go back and calc again
