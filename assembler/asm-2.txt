@@ -1,10 +1,12 @@
 ; Test
-start: LDV A, #A ; Test2
+start: LOAD A, #A ; Test2
 loop:  INC A
+       ; SUB A,B
        JMP start
        JMP olo
+       JMP 20
        ; Another test
-test:  LDV A, #20
+test:  LOAD A, 20
 ;hello: JMP test
        OUTPUT
        JMP loop

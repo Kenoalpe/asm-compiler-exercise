@@ -1,7 +1,4 @@
 class FileUtils:
-    def __init__(self):
-        raise NotImplementedError('This class is not meant to be instantiated')
-
     @staticmethod
     def parse_txt(file_path: str = None):
         file_data = None
@@ -13,3 +10,6 @@ class FileUtils:
         except Exception as e:
             print(f'An unexpected error occurred: {e}')
         return file_data
+
+    def __init__(self):
+        raise NotImplementedError('This class is not meant to be instantiated')

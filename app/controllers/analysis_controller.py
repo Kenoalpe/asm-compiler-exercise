@@ -49,14 +49,17 @@ class AnalysisController:
         # Internal copies
         internal_ilc = instruction_line_counter
         internal_symbol_table = symbol_table
+
         # Match line to regex
         match = re.match(pattern=self.model.pattern, string=line)
+
         # Check if anything matches, if not raise an SyntaxError
         if match:
             # Check if a label definition needs to be added to the symbol_table
             defined_label = match.group(self.model.label_definition_group)
             if defined_label:
                 internal_symbol_table[defined_label] = instruction_line_counter
+
             # Check if a label gets called
             called_label = match.group(self.model.label_call_group)
             if called_label:
@@ -73,5 +76,6 @@ class AnalysisController:
         else:
             # Wrong characters
             raise SyntaxError(f'No valid assembly on line: {instruction_line_counter}')
+
         # Return updated counter and symbol_table
         return internal_ilc, internal_symbol_table
