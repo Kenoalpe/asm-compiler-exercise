@@ -1,6 +1,7 @@
         ; init B auf 1
         LOAD A, #1
         MOV B,A
+        ; RESB 5
         ; init A auf 10
         LOAD A, #A
 loop:   BEQ end

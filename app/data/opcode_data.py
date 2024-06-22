@@ -22,5 +22,9 @@ class OpcodeData:
             'STORE A,': '18',
         }
 
+    @staticmethod
+    def get_pseudo_instruction_data():
+        return ['RESB']
+
     def __init__(self):
         raise NotImplementedError('This class is not meant to be instantiated')

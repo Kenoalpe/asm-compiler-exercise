@@ -53,15 +53,18 @@ class AnalysisController:
         # Match line to regex
         match = re.match(pattern=self.model.pattern, string=line)
 
+        # Get tokens
+        defined_label = match.group(self.model.label_definition_group)
+        called_label = match.group(self.model.label_call_group)
+        byte = match.group(self.model.byte_definition_group)
+
         # Check if anything matches, if not raise an SyntaxError
         if match:
             # Check if a label definition needs to be added to the symbol_table
-            defined_label = match.group(self.model.label_definition_group)
             if defined_label:
                 internal_symbol_table[defined_label] = instruction_line_counter
 
             # Check if a label gets called
-            called_label = match.group(self.model.label_call_group)
             if called_label:
                 # Increment counter because of the extra byte
                 internal_ilc += 1
@@ -69,7 +72,6 @@ class AnalysisController:
                     internal_symbol_table[called_label] = None
             else:
                 # Check for a byte value
-                byte = match.group(self.model.byte_definition_group)
                 if byte:
                     # Increment counter
                     internal_ilc += 1

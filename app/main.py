@@ -24,6 +24,7 @@ def run():
 
     # Set the opcode table in the synthesis model
     synthesis_model.opcode_table = OpcodeData.get_opcode_data()
+    synthesis_model.pseudo_instruction = OpcodeData.get_pseudo_instruction_data()
 
     # Run the synthesis to generate machine code
     # ToDo change parse to view
