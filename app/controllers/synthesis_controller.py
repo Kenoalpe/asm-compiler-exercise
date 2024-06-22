@@ -53,7 +53,7 @@ class SynthesisController:
         # Match line to regex
         match = re.match(pattern=self.model.pattern, string=line)
 
-        # Replace instruction and constant with opcode
+        # Replace instruction and literal with opcode
         instruction = match.group(3)
         if instruction:
             instruction = instruction.strip()
@@ -61,20 +61,20 @@ class SynthesisController:
                 # Check if instruction is available in opcode table
                 instruction_opcode = self.model.opcode_table[instruction]
 
-                # Check for a constant
-                constant = match.group(self.model.byte_definition_group)
-                if constant:
+                # Check for a literal
+                literal = match.group(self.model.byte_definition_group)
+                if literal:
                     # Check if this instruction has different connotations, if yes differentiate between address and
                     # value if not, just add the opcode of the instruction following the value
                     if isinstance(instruction_opcode, dict):
-                        if '#' in constant:
-                            constant = constant.replace('#', '')
+                        if '#' in literal:
+                            literal = literal.replace('#', '')
                             internal_opcode_list.append(instruction_opcode['#'])
                         else:
                             internal_opcode_list.append(instruction_opcode[''])
                     else:
                         internal_opcode_list.append(instruction_opcode)
-                    internal_opcode_list.append(AssemblerUtil.hexlify(constant.strip(), False))
+                    internal_opcode_list.append(AssemblerUtil.hexlify(literal.strip(), False))
                 else:
                     internal_opcode_list.append(instruction_opcode)
             except KeyError:
