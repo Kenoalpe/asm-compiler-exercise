@@ -1,0 +1,16 @@
+        ; init B auf 1
+        LOAD A, #1
+        MOV B,A
+        ; init A auf 10
+        LOAD A, #A
+loop:   BEQ end
+        ; Gebe A aus
+        OUTPUT
+        ; Dec A
+        SUB A,B
+        ; Go back and calc again
+        JMP loop
+end:    OUTPUT
+        SUB A,B
+        OUTPUT
+        HALT

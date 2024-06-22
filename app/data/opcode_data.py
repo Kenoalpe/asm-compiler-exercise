@@ -19,7 +19,7 @@ class OpcodeData:
             'OR A,B': '13',
             'EQUAL': '15',
             'BEQ': '16',
-            'STORE A': '18',
+            'STORE A,': '18',
         }
 
     def __init__(self):
