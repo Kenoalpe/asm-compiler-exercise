@@ -1,5 +1,6 @@
 # Self added
 .idea/
+assembler/opcode.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

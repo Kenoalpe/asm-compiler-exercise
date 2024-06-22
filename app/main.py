@@ -1,9 +1,8 @@
-import re
-
 # Internal imports
-from app.models import AnalysisModel, SynthesisModel
+from app.models import AnalysisModel
 from app.views import AnalysisView, SynthesisView
 from app.controllers import AnalysisController, SynthesisController
+from app.util import FileUtils
 from app.data import OpcodeData
 
 
@@ -27,4 +26,4 @@ def run():
     synthesis_model.opcode_table = OpcodeData.get_opcode_data()
 
     # Run the synthesis to generate machine code
-    SynthesisController(model=synthesis_model, view=SynthesisView).run()
+    FileUtils.parse_array_to_file('assembler/opcode.txt', SynthesisController(model=synthesis_model, view=SynthesisView).run())

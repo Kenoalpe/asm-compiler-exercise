@@ -43,6 +43,7 @@ class SynthesisController:
             counter += 1
 
         print(opcode_list_out)
+        return opcode_list_out
 
     def _parse_line(self, counter: int, opcode_list, line: str):
         # Internal copies
