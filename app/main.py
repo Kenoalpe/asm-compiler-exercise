@@ -18,7 +18,7 @@ def run():
             pattern=r'(\s*([_a-z]\w*)\s*:)?\s*([A-Z]*\s*[A-Z]\s*,{0,1}[A-Z]{0,1})\s*(#{0,1}([0-9a-fA-F]{0,2})\s*)?(\s*([_a-z]\w*)\s*)?',
             label_definition_group=2,
             label_call_group=7,
-            byte_definition_group=5
+            byte_definition_group=4
         ),
         view=AnalysisView
     ).run()

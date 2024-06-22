@@ -89,6 +89,7 @@ class SynthesisController:
                 if constant:
                     if isinstance(instruction_opcode, dict):
                         if '#' in constant:
+                            constant = constant.replace('#', '')
                             internal_opcode_list.append(instruction_opcode['#'])
                         else:
                             internal_opcode_list.append(instruction_opcode[''])
@@ -97,7 +98,6 @@ class SynthesisController:
                     internal_opcode_list.append(AssemblerUtil.hexlify(constant.strip(), False))
                 else:
                     internal_opcode_list.append(instruction_opcode)
-
             except KeyError:
                 raise SyntaxError(f"Instruction on line '{line}' not available in opcode table!")
 
