@@ -42,30 +42,6 @@ class SynthesisController:
 
             counter += 1
 
-            # # Replace instruction with opcode
-            # instruction_pattern = r'([A-Z]*\s*[A-Z]{0,1})'
-            # match = re.search(pattern=instruction_pattern, string=line)
-            # if match:
-            #     try:
-            #         opcode_list_out.append(self.model.opcode_table[match.group(1).strip()])
-            #     except KeyError:
-            #         raise SyntaxError(f"Instruction on line '{line}' not available in opcode table!")
-            #
-            # # Check if a label need to be placed
-            # label_pattern = r'([_a-z]\w*)\s*'
-            # match = re.search(pattern=label_pattern, string=line)
-            # if match:
-            #     try:
-            #         opcode_list_out.append(AssemblerUtil.hexlify(self.model.symbol_table[match.group(1).strip()], True))
-            #     finally:
-            #         pass
-            #
-            # # Check if a constant needs to be added
-            # const_value_pattern = r'#([0-9a-fA-F]{1,2})'
-            # match = re.search(pattern=const_value_pattern, string=line)
-            # if match:
-            #     opcode_list_out.append(AssemblerUtil.hexlify(match.group(1), False))
-
         print(opcode_list_out)
 
     def _parse_line(self, counter: int, opcode_list, line: str):
@@ -76,7 +52,7 @@ class SynthesisController:
         # Match line to regex
         match = re.match(pattern=self.model.pattern, string=line)
 
-        # Replace instruction with opcode
+        # Replace instruction and constant with opcode
         instruction = match.group(3)
         if instruction:
             instruction = instruction.strip()
@@ -84,9 +60,11 @@ class SynthesisController:
                 # Check if instruction is available in opcode table
                 instruction_opcode = self.model.opcode_table[instruction]
 
-                # Check for a constant to later differentiate between address and value
+                # Check for a constant
                 constant = match.group(self.model.byte_definition_group)
                 if constant:
+                    # Check if this instruction has different connotations, if yes differentiate between address and
+                    # value if not, just add the opcode of the instruction following the value
                     if isinstance(instruction_opcode, dict):
                         if '#' in constant:
                             constant = constant.replace('#', '')
