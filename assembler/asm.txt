@@ -1,11 +1,14 @@
 ; Programm startet immer am Anfang
             INPUT            ; Wert einlesen
             MOV B,A          ; Und in Register B für immer speichern
+            LOAD A, #label   ; Teste einmal eben die Konstante mit EQU (ändert nicht am Programm)
 loop:       LOAD A, counter  ; Zu wenig Register! Zähler im Speicher
             OUTPUT           ; Wir wollen was ausgeben
             INC A            ; Zahler erhöhen ...
             STORE A, counter ; ... und sichern bevor er weg ist
             SUB A,B          ; Teuer auf Gleichheit prüfen
+
+label:      EQU 20
             BEQ end          ; ggf. springen
             JMP loop         ; zum Schleifenanfang springen
 memory:     RESB 5           ; Reserviere 4 Bytes (an dieser Stelle)

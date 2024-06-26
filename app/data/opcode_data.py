@@ -2,6 +2,7 @@ class OpcodeData:
     @staticmethod
     def get_opcode_data() -> dict[str, str]:
         return {
+            # mnemonics : machine-code
             'INPUT': '01',
             'OUTPUT': '02',
             'JMP': '03',

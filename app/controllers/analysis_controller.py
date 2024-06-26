@@ -40,6 +40,9 @@ class AnalysisController:
             # Inc ilc for next line
             counter += 1
 
+        # Check for a sematic error
+        self.semantic_error_check(symbol_table)
+
         return SynthesisModel(
             analysis_model=self.model,
             symbol_table=symbol_table,
