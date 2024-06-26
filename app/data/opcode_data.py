@@ -26,6 +26,7 @@ class OpcodeData:
 
     @staticmethod
     def get_pseudo_instruction_data():
+        # List of all available pseudo instructions (logic must be implemented in code)
         return ['DB', 'EQU', 'RESB']
 
     def __init__(self):
