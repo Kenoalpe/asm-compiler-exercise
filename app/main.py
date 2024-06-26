@@ -7,7 +7,7 @@ from app.data import OpcodeData
 
 def run():
     print('Welcome, let\'s assemble some assembly!')
-    path = 'assembler/asm-5.txt'
+    path = 'assembler/asm.txt'
 
     # Run analysis on the assembly file and return the synthesis_model
     synthesis_model = AnalysisController(

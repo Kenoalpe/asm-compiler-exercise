@@ -17,6 +17,7 @@ class OpcodeData:
             'SUB A,B': '11',
             'AND A,B': '12',
             'OR A,B': '13',
+            'NOP': '14',
             'EQUAL': '15',
             'BEQ': '16',
             'STORE A,': '18',
