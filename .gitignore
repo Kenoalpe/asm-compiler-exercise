@@ -1,6 +1,12 @@
 # Self added
 .idea/
-assembler/opcode.txt
+# Remove tests
+assembler/machine-code.txt
+assembler/asm-1.txt
+assembler/asm-2.txt
+assembler/asm-3.txt
+assembler/asm-4.txt
+assembler/asm-5.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

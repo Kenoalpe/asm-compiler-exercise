@@ -87,7 +87,6 @@ class AnalysisController:
                         internal_ilc -= 2
                         internal_symbol_table[defined_label] = byte
                     elif instruction == 'RESB':
-                        # ToDo error handling for when byte is not an int
                         internal_ilc = internal_ilc + int(byte) - 2
 
         else:

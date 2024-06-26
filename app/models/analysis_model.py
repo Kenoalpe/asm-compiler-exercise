@@ -10,6 +10,7 @@ class AnalysisModel:
                  assembly_file_path: str,
                  pattern: str,
                  pseudo_instruction: str,
+                 instruction_group: int,
                  label_definition_group: int,
                  label_call_group: int,
                  byte_definition_group: int):
@@ -17,6 +18,7 @@ class AnalysisModel:
         self.path = assembly_file_path
         self.pattern = re.compile(pattern)
         self.pseudo_instruction = pseudo_instruction
+        self.instruction_group = instruction_group
         self.label_definition_group = label_definition_group
         self.label_call_group = label_call_group
         self.byte_definition_group = byte_definition_group

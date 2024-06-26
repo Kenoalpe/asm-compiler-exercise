@@ -6,3 +6,6 @@ class AnalysisView:
         if assembler is not None:
             print(assembler)
         print('--------------------------')
+
+    def __init__(self):
+        raise NotImplementedError('This class is not meant to be instantiated')

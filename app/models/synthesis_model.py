@@ -9,6 +9,7 @@ class SynthesisModel(AnalysisModel):
         super().__init__(assembly_file_path=analysis_model.path,
                          pattern=analysis_model.pattern,
                          pseudo_instruction=analysis_model.pseudo_instruction,
+                         instruction_group=analysis_model.instruction_group,
                          label_definition_group=analysis_model.label_definition_group,
                          label_call_group=analysis_model.label_call_group,
                          byte_definition_group=analysis_model.byte_definition_group)

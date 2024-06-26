@@ -1,3 +1,11 @@
+# Internal Imports
+from app.util import FileUtils
+
+
 class SynthesisView:
-    # ToDo write output view here
-    pass
+    @staticmethod
+    def print_to_file(text):
+        FileUtils.parse_array_to_file('assembler/machine-code.txt', text)
+
+    def __init__(self):
+        raise NotImplementedError('This class is not meant to be instantiated')

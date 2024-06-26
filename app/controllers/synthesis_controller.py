@@ -16,11 +16,11 @@ class SynthesisController:
         counter = 0
         opcode_list_out = []
 
-        # ToDo remove debug
-        print('---------------------')
-        print(self.model.opcode_table)
-        print(self.model.symbol_table)
-        print('---------------------')
+        # Optional debugging:
+        # print('---------------------')
+        # print(self.model.opcode_table)
+        # print(self.model.symbol_table)
+        # print('---------------------')
 
         for line in self.model.line_data:
             # Remove comment and comment lines
@@ -42,21 +42,19 @@ class SynthesisController:
 
             counter += 1
 
-        print(opcode_list_out)
+        self.view.print_to_file(opcode_list_out)
         return opcode_list_out
 
     def _parse_line(self, counter: int, opcode_list, line: str):
         # Internal copies
         internal_counter = counter
         internal_opcode_list = opcode_list
-        pseudo_flag = False
 
         # Match line to regex
         match = re.match(pattern=self.model.pattern, string=line)
 
-        # ToDo Move group to model
         # Get tokens
-        instruction = match.group(3)
+        instruction = match.group(self.model.instruction_group)
         called_label = match.group(self.model.label_call_group)
         byte = match.group(self.model.byte_definition_group)
 
@@ -76,8 +74,7 @@ class SynthesisController:
 
                     return internal_counter, internal_opcode_list
                 else:
-                    # ToDo error handling
-                    pass
+                    raise SyntaxError(f'Line: {line} must have a number or value.')
 
             try:
                 # Check if instruction is available in opcode table
