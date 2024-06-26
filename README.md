@@ -48,6 +48,20 @@ This perticular Assembler supports the following Instructions:
 | EQU <value> | Defines a constant |
 | RESB <number> | Reserves number of `<number>` of bytes in RAM |
 
+You can also place comments. They beginn with a `;` and end at the end of the line
+```asm
+; This is a comment
+INPUT ; this is a comment too 
+MOV B,A ;this is also a comment 
+```
+
+Additionally you can use `Labels` to acess your values and constants and define jump markers, like this
+```asm
+myByteAdress: DB 45h ; Places a 0x45 at the position of this labeln in the RAM; can be used for instruction with a address parameter
+myConstant: EQU 34h ; Definies a constant 34h at the position of this labeln in the RAM; can be used for instructions with a value paramter
+revervedBytes: RESB 5 ; Definies 5 bytes; can be used for instruction with a address parameter, points to the first byte 
+```
+
 Now you can generate the machine code via `python 3 -m app`
 This generates an output `machine-code.txt` file.
 You can now copy the contents of this file and paste them into your RAM of your Logisim CPU.
