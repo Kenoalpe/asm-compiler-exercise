@@ -23,17 +23,17 @@ This repository provides an assembler written in Python for a simulated CPU in L
 It is important to notice that the output this Assembler only works for a special CPU made for this Projekt.
 
 ## Writing an Assembler File
-To use the Assembler you'd have to write an Assembler File names `yoa keno sag mal.txt` containing your Instructions for your CPU Programm.
+To use the Assembler you'd have to write an Assembler File names `asm.txt` containing your Instructions for your CPU Programm.
 
 This perticular Assembler supports the following Instructions:
 | Instruction     | Definition      |
 | ------------- | ------------- |
 | NOP           | No Operation; does Nothing and moves on to the next Instruction after one CPU Cycle|
-| INPUT | Reads data from the external Input Field ans writes into register A|
+| INPUT    | Reads data from the external Input Field ans writes into register A|
 | Output | Copies content from register A to the output bus, where its displayed in hex format |
 | JMP `<adress>` | Jumps to <address> adress in  RAM  |
 | LOAD A,#<value> | Loads a constant <value> value in register A |
-| LOAD A,<adress> | Loads a value from `<adress>` adress of the RAM in register A |
+| LOAD A,<adress> | Loads a value from `<adress>` address of the RAM in register A |
 | INC A | Increments register A by 1 |
 | INC B | Incrementes register B by 1 |
 | MOV B,A | Copies contents of register A into register B |
@@ -44,3 +44,10 @@ This perticular Assembler supports the following Instructions:
 | ISEQUAL | Checks if content of register An and register B is the equal and writes the result in register A (0h if equal, else not equal) |
 | JMPEQ <address> | Jumps to `<address>` adress in RAM if contents of regsiter A and register B are the same |
 | STORE <address> | Stores the content of register A at `<address>` adress in the RAM
+| DB <value> | Definies a byte in  RAM |
+| EQU <value> | Defines a constant |
+| RESB <number> | Reserves number of `<number>` of bytes in RAM |
+
+Now you can generate the machine code via `python 3 -m app`
+This generates an output `machine-code.txt` file.
+You can now copy the contents of this file and paste them into your RAM of your Logisim CPU.
