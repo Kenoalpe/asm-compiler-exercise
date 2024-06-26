@@ -20,7 +20,7 @@ class AnalysisController:
 
     def run(self):
         # Initialize variables
-        counter = 0
+        ilc = 0
         symbol_table: dict[str, int | None] = {}
 
         # Parse line for line into the symbol_table
@@ -31,14 +31,14 @@ class AnalysisController:
                 continue
 
             # Parse line into symbol-table
-            counter, symbol_table = self._parse_line(
-                instruction_line_counter=counter,
+            ilc, symbol_table = self._parse_line(
+                instruction_line_counter=ilc,
                 symbol_table=symbol_table,
                 line=line
             )
 
             # Inc ilc for next line
-            counter += 1
+            ilc += 1
 
         # Check for a sematic error
         self.semantic_error_check(symbol_table)

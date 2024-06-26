@@ -13,8 +13,8 @@ class SynthesisController:
 
     def run(self):
         # Initialize variables
-        counter = 0
-        opcode_list_out = []
+        ilc = 0
+        opcode_list = []
 
         # Optional debugging:
         # print('---------------------')
@@ -34,20 +34,20 @@ class SynthesisController:
                 continue
 
             # Parse line into the opcode list
-            counter, opcode_list_out = self._parse_line(
-                counter=counter,
-                opcode_list=opcode_list_out,
+            ilc, opcode_list = self._parse_line(
+                counter=ilc,
+                opcode_list=opcode_list,
                 line=line
             )
 
-            counter += 1
+            ilc += 1
 
-        self.view.print_to_file(opcode_list_out)
-        return opcode_list_out
+        self.view.print_to_file(opcode_list)
+        return opcode_list
 
     def _parse_line(self, counter: int, opcode_list, line: str):
         # Internal copies
-        internal_counter = counter
+        internal_ilc = counter
         internal_opcode_list = opcode_list
 
         # Match line to regex
@@ -72,7 +72,7 @@ class SynthesisController:
                         for i in range(0, byte):
                             internal_opcode_list.append('00')
 
-                    return internal_counter, internal_opcode_list
+                    return internal_ilc, internal_opcode_list
                 else:
                     raise SyntaxError(f'Line: {line} must have a number or value.')
 
@@ -106,4 +106,4 @@ class SynthesisController:
             else:
                 internal_opcode_list.append(AssemblerUtil.hexlify(symbol_num, True))
 
-        return internal_counter, internal_opcode_list
+        return internal_ilc, internal_opcode_list
