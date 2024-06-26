@@ -20,7 +20,7 @@ This repository provides an assembler written in Python for a simulated CPU in L
 `python3 -m app`
 
 # How to use
-It is important to notice that the output this Assembler only works for a special CPU made for this Projekt.
+It is important to notice that the output of this Assembler only works for a specific CPU made for this Projekt.
 
 ## Writing an Assembler File
 To use the Assembler you'd have to write an Assembler File names `asm.txt` containing your Instructions for your CPU Programm.
