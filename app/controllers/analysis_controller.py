@@ -57,7 +57,7 @@ class AnalysisController:
         match = re.match(pattern=self.model.pattern, string=line)
 
         # Get tokens
-        instruction = match.group(3)
+        instruction = match.group(self.model.instruction_group)
         defined_label = match.group(self.model.label_definition_group)
         called_label = match.group(self.model.label_call_group)
         byte = match.group(self.model.byte_definition_group)
